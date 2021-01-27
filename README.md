@@ -2,7 +2,7 @@
 
 ## Challenge
 
-In the last years I enjoyed using [nMigen](https://github.com/nmigen/nmigen), (an improved version of [Migen](https://github.com/m-labs/migen)), I like to explore the projects related to this framework, and in that quest I found some [excellent tutorial](https://github.com/RobertBaruch/nmigen-tutorial) and [graded exercises](https://github.com/RobertBaruch/nmigen-exercises) provided by @RobertBaruch.
+In the last years I enjoyed using [nMigen](https://github.com/nmigen/nmigen), (an improved version of [Migen](https://github.com/m-labs/migen)), I like to explore the projects related to this framework, and in that quest I found some [excellent tutorial](https://github.com/RobertBaruch/nmigen-tutorial) and [graded exercises](https://github.com/RobertBaruch/nmigen-exercises) provided by [Robert Baruch](https://github.com/RobertBaruch/).
 
 These graded exercises focus on the formal verification capabilities of nMigen, so if you come from other tools/HDLs or already have experience with nMigen and have not tried it yet, I encourage you to learn formal verification concepts like [Bounded Model Check](https://en.wikipedia.org/wiki/Model_checking), or force your model to reach to some specific state and tell you how it did it, or prove some properties by induction.
 
