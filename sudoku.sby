@@ -1,0 +1,15 @@
+[tasks]
+cover
+
+[options]
+cover: mode cover
+
+[engines]
+cover: smtbmc z3
+
+[script]
+read_ilang sudoku.il
+prep -top top
+
+[files]
+sudoku.il
