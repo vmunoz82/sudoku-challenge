@@ -2,9 +2,9 @@
 
 ## Challenge
 
-In the last years I enjoyed using [nMigen](https://github.com/nmigen/nmigen), (an improved version of [Migen](https://github.com/m-labs/migen)), I like to explore the projects related to this framework, and in that quest I found some [excellent tutorial](https://github.com/RobertBaruch/nmigen-tutorial) and [graded exercises](https://github.com/RobertBaruch/nmigen-exercises) provided by [Robert Baruch](https://github.com/RobertBaruch/).
+In the last years I enjoyed using [Amaranth HDL](https://github.com/amaranth-lang/amaranth), (an improved version of [Migen](https://github.com/m-labs/migen)), I like to explore the projects related to this framework, and in that quest I found some [excellent tutorial](https://github.com/RobertBaruch/nmigen-tutorial) and [graded exercises](https://github.com/RobertBaruch/nmigen-exercises) provided by [Robert Baruch](https://github.com/RobertBaruch/).
 
-These graded exercises focus on the formal verification capabilities of nMigen, so if you come from other tools/HDLs or already have experience with nMigen and have not tried it yet, I encourage you to learn formal verification concepts like [Bounded Model Check](https://en.wikipedia.org/wiki/Model_checking), or force your model to reach to some specific state and tell you how it did it, or prove some properties by induction.
+These graded exercises focus on the formal verification capabilities of Amaranth HDL, so if you come from other tools/HDLs or already have experience with Amaranth HDL and have not tried it yet, I encourage you to learn formal verification concepts like [Bounded Model Check](https://en.wikipedia.org/wiki/Model_checking), or force your model to reach to some specific state and tell you how it did it, or prove some properties by induction.
 
 After completing the exercises, there is a challenge to test what you have learned: you have to develop a [Sudoku solver](https://en.wikipedia.org/wiki/Sudoku_solving_algorithms).
 
@@ -50,7 +50,7 @@ The *EDA* industry makes extended use of formal verification, you must pay atten
 
 Luckily for all us, in the last decade we have experienced a proliferation of high quality open source EDA tools, among them is a synthesis framework named [Yosys](https://github.com/YosysHQ/yosys) that have the capability of perform formal verification steps, we can use it at pair with [SymbiYosys](https://github.com/YosysHQ/SymbiYosys), a frontend from the same authors to ease its usage at the formal verification flows.
 
-Using the property checker capability of Yosys, and the nMigen ability to express the equivalent [SystemVerilog Assertions](https://www.systemverilog.io/sva-basics), we can **assume** the Sudoku clues and **cover** the case where the all the Sudoku rules meet.
+Using the property checker capability of Yosys, and the Amaranth HDL ability to express the equivalent [SystemVerilog Assertions](https://www.systemverilog.io/sva-basics), we can **assume** the Sudoku clues and **cover** the case where the all the Sudoku rules meet.
 
 ### Accept the external input
 
@@ -130,7 +130,7 @@ print([sudoku[i*9:i*9+9] for i in range(9)])
 
 The first step for develop this solver is to define our device, it must accept a complete or incomplete Sudoku set and tell us if it meets the whole set of rules, in fact, the device is nothing more than a Sudoku checker (not a solver).
 
-For that we need to create 81 inputs, each one named as *A1* to *I9* as in the grids described above, if we want to see them in the simulated waveforms we need to instantiate the variables as members of our class, to do it within Python in a dynamic form we can use the `__dict__` dictionary, but there is a catch: nMigen don't auto-recognize the name of the member when they are defined in a dynamic form, so you need to use the `name` attribute of `Signal()`. 
+For that we need to create 81 inputs, each one named as *A1* to *I9* as in the grids described above, if we want to see them in the simulated waveforms we need to instantiate the variables as members of our class, to do it within Python in a dynamic form we can use the `__dict__` dictionary, but there is a catch: Amaranth HDL don't auto-recognize the name of the member when they are defined in a dynamic form, so you need to use the `name` attribute of `Signal()`. 
 
 This code will do the job:
 
@@ -193,7 +193,7 @@ def decoder(m, s, n):
             m.d.comb += s.eq(0)  # If no case matches
 ```
 
-I am aware that nMigen has is own decoder available, but we want to use just 9 bits, using a standard one hot decoder in this case would generate a 10 bits signal and as we don't need to include the zero value, we have to create our own version.
+I am aware that Amaranth HDL has is own decoder available, but we want to use just 9 bits, using a standard one hot decoder in this case would generate a 10 bits signal and as we don't need to include the zero value, we have to create our own version.
 
 Now we can create a decoded version of each cell, so for the cell named *A1*, we got a decoded cell member named *dA1*, and so on:
 
@@ -227,7 +227,7 @@ Now we need to check that only one instance of each digit is present in a row, f
 
 The structure above is a collection of tuples with the name of the row in addition of a tuple with name of the cells that makes such row.
 
-So using nMigen assignments we can make an `or` construct with each cell decoded value:
+So using Amaranth HDL assignments we can make an `or` construct with each cell decoded value:
 
 ```python
         for v in grid:

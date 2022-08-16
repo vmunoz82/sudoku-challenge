@@ -2,10 +2,10 @@
 # pylint: disable=C0103
 from typing import List, Tuple
 
-from nmigen import Signal, Module, Elaboratable
-from nmigen.build import Platform
-from nmigen.asserts import Assume, Assert, Cover
-from nmigen.sim import Simulator, Passive, Delay, Settle
+from amaranth import Signal, Module, Elaboratable
+from amaranth.build import Platform
+from amaranth.asserts import Assume, Assert, Cover
+from amaranth.sim import Simulator, Passive, Delay, Settle
 
 from util import main
 
@@ -141,7 +141,7 @@ class Sudoku(Elaboratable):
 
 import sys, re
 
-import nmigen.cli
+import amaranth.cli
 
 if __name__ == "__main__" and len(sys.argv)>2:
     if sys.argv[1] == "sim" or sys.argv[1] == "gen":
